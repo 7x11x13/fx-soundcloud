@@ -45,6 +45,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
         return Response.redirect(scURL, 302);
     }
 
+    console.log(resource);
+
     let html = `<head>`;
     html += `<meta content="SoundCloud" property="twitter:site">`;
     html += `<meta property="twitter:title" content="${resource.title}">`;
