@@ -27,7 +27,8 @@ async function resolveURL(kv: KVNamespace, url: string): Promise<any> {
     return await response.json();
 }
 
-function getFullQualityArtworkURL(url: string): string {
+function getFullQualityArtworkURL(resource: any): string {
+    const url = resource.artwork_url || resource.user.avatar_url;
     const x = url.split("-");
     x[x.length - 1] = "t500x500.jpg";
     return x.join("-");
@@ -55,7 +56,7 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     html += `<meta property="twitter:url" content="${resource.permalink_url}">`;
     html += `<meta property="twitter:player:height" content="120">`;
     html += `<meta property="twitter:player:width" content="435">`;
-    html += `<meta property="twitter:image" content="${getFullQualityArtworkURL(resource.artwork_url)}">`;
+    html += `<meta property="twitter:image" content="${getFullQualityArtworkURL(resource)}">`;
     html += `<link rel="alternate" type="text/json+oembed" href="https://soundcloud.com/oembed?url=${encodeURIComponent(resource.uri)}&amp;format=json">`;
     html += `<meta http-equiv="refresh" content="0;url=${resource.permalink_url}">`;
     html += `</head>`;
