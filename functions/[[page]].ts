@@ -38,16 +38,15 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const page = context.params.page as string[] || [];
     const scURL = "https://soundcloud.com/" + page.join("/");
 
-    if (page.length < 2 || page.length > 3) {
-        // track = 2, playlist = 3
+    if (page.length < 2 || page.length > 4) {
+        // track = 2 or 3, playlist = 3 or 4
         return Response.redirect(scURL, 302);
     }
     const resource = await resolveURL(context.env.SOUNDCLOUD, scURL);
+    console.log(resource);
     if (resource.kind !== "track" && resource.kind !== "playlist") {
         return Response.redirect(scURL, 302);
     }
-
-    console.log(resource);
 
     let html = `<head>`;
     html += `<meta content="SoundCloud" property="twitter:site">`;
