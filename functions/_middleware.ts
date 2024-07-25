@@ -1,5 +1,5 @@
 export const onRequestGet: PagesFunction = async (context) => {
-    const cacheKey = context.request.url;
+    const cacheKey = context.request.url.split("?")[0];
     const cache = caches.default;
     let response = await cache.match(cacheKey);
     if (!response) {
