@@ -38,7 +38,8 @@ export const onRequestGet: PagesFunction<Env> = async (context) => {
     const page = context.params.page as string[] || [];
     const scURL = "https://soundcloud.com/" + page.join("/");
 
-    if (page.length !== 2) {
+    if (page.length < 2 || page.length > 3) {
+        // track = 2, playlist = 3
         return Response.redirect(scURL, 302);
     }
     const resource = await resolveURL(context.env.SOUNDCLOUD, scURL);
